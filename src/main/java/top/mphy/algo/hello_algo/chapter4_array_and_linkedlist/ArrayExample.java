@@ -1,4 +1,4 @@
-package top.mphy.algo.hello_algo.chatper4_array_and_linkedlist;
+package top.mphy.algo.hello_algo.chapter4_array_and_linkedlist;
 
 import java.util.Arrays;
 import java.util.List;

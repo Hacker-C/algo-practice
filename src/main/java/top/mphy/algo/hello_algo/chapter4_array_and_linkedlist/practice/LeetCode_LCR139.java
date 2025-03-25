@@ -1,10 +1,7 @@
-package top.mphy.algo.hello_algo.chatper4_array_and_linkedlist.practice;
+package top.mphy.algo.hello_algo.chapter4_array_and_linkedlist.practice;
 
 
-import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class LeetCode_LCR139 {
     /**

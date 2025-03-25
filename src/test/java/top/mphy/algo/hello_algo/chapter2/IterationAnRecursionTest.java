@@ -2,7 +2,7 @@ package top.mphy.algo.hello_algo.chapter2;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import top.mphy.algo.hello_algo.chatper2_complexity.IterationAnRecursion;
+import top.mphy.algo.hello_algo.chapter2_complexity.IterationAnRecursion;
 
 public class IterationAnRecursionTest {
     @Test

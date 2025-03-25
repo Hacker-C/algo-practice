@@ -1,4 +1,4 @@
-package top.mphy.algo.hello_algo.chatper2_complexity;
+package top.mphy.algo.hello_algo.chapter2_complexity;
 
 public class IterationAnRecursion {
     public static int fib(int n) {

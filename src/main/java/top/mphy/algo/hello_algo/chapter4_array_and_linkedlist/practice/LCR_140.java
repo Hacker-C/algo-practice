@@ -1,7 +1,4 @@
-package top.mphy.algo.hello_algo.chatper4_array_and_linkedlist.practice;
-
-import java.util.ArrayList;
-import java.util.List;
+package top.mphy.algo.hello_algo.chapter4_array_and_linkedlist.practice;
 
 public class LCR_140 {
     public ListNode trainingPlan(ListNode head, int cnt) {
