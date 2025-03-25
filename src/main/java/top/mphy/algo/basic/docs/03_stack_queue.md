@@ -6,9 +6,9 @@ Java 集合接口和类关系图：
 
 ![collections](./img/collections.jpg)
 
-1. 要使用栈时，不推荐使用 `Stack`，推荐使用 `Deque` 接口，实现采用 `LinkedList` 或者 `ArrayQueue` 类
-2. 要使用队列时，推荐使用 `Queue` / `Deque` 接口，实现采用 `LinkedList` / `ArrayQueue` 类
-3. `ArrayQueue` 是一个基于动态数组实现的双端队列，可以想象，在队列中存在两个指针，一个指向头部，一个指向尾部，因此它具有“FIFO队列”及“栈”的方法特性。
+1. 要使用栈时，不推荐使用 `Stack`，推荐使用 `Deque` 接口，实现采用 `LinkedList` 或者 `ArrayDeque` 类
+2. 要使用队列时，推荐使用 `Queue` / `Deque` 接口，实现采用 `LinkedList` / `ArrayDeque` 类
+3. `ArrayDeque` 是一个基于动态数组实现的双端队列，可以想象，在队列中存在两个指针，一个指向头部，一个指向尾部，因此它具有“FIFO队列”及“栈”的方法特性。
 4. `LinkedList` 是 `List` 接口的实现类，也是 `Deque` 的实现类，底层是一种双向链表的数据结构，在上面咱们也有所介绍，LinkedList可以根据索引来获取元素，增加或删除元素的效率较高，如果查找的话需要遍历整合集合，效率较低
 
 ```java
