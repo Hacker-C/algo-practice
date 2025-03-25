@@ -8,6 +8,12 @@ public class MyLinkedList2 {
     public MyLinkedList2() {
     }
 
+    /**
+     * 获取指定位置的元素
+     *
+     * @param index
+     * @return
+     */
     public int get(int index) {
         ListNode<Integer> cur = head;
         for (int i = 0; i < index; i++) {
@@ -19,6 +25,11 @@ public class MyLinkedList2 {
         return cur.value;
     }
 
+    /**
+     * 头插
+     *
+     * @param val
+     */
     public void addAtHead(int val) {
         if (head == null) {
             head = new ListNode<>(val);
@@ -29,6 +40,10 @@ public class MyLinkedList2 {
         head = newHead;
     }
 
+    /**
+     * 尾加
+     * @param val
+     */
     public void addAtTail(int val) {
         ListNode<Integer> cur = head;
         while (cur != null && cur.next != null) {
@@ -41,6 +56,11 @@ public class MyLinkedList2 {
         }
     }
 
+    /**
+     * 指定位置添加
+     * @param index
+     * @param val
+     */
     public void addAtIndex(int index, int val) {
         if (index == 0) {
             addAtHead(val);
@@ -60,6 +80,11 @@ public class MyLinkedList2 {
         }
     }
 
+    /**
+     * 指定索引删除
+     *
+     * @param index
+     */
     public void deleteAtIndex(int index) {
         ListNode<Integer> pre = new ListNode<>(null);
         ListNode<Integer> cur = head;
