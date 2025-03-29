@@ -83,3 +83,8 @@ public class JavaStackTest {
 ### 参考
 
 - https://developer.aliyun.com/article/866814
+
+## 队列和栈互相实现
+
+- 用队列实现栈，只要一个队列
+- 用栈实现队列，要两个栈

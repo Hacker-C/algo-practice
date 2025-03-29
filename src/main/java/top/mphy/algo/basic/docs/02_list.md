@@ -25,7 +25,7 @@ public class MyList<E> {
 
     private E[] array;
 
-    /**
+    /**234,165, 62
      * 元素数量
      */
     private int size = 0;
