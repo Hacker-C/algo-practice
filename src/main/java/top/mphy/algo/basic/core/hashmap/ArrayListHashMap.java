@@ -1,6 +1,5 @@
 package top.mphy.algo.basic.core.hashmap;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -12,21 +11,46 @@ public class ArrayListHashMap<K, V> {
     
     private static final int MAX_SIZE = 100;
 
+    /**
+     * 键值对节点 接口定义
+     * @param <K>
+     * @param <V>
+     */
+    public interface Entry<K, V> {
+        K getKey();
+        V getValue();
+    }
 
-    private static class Pair<K, V> {
+
+    /**
+     * 键值对节点实现
+     * @param <K>
+     * @param <V>
+     */
+    private static class Node<K, V> implements ArrayListHashMap.Entry<K, V> {
         private K key;
         private V value;
 
-        public Pair(K key, V value) {
+        public Node(K key, V value) {
             this.key = key;
             this.value = value;
+        }
+
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
         }
     }
 
     /**
-     * 列表实现哈希表
+     * 桶列表，一个桶存放一个结果
      */
-    private List<Pair<K, V>> buckets;
+    private List<Node<K, V>> buckets;
 
     public ArrayListHashMap() {
         buckets = new ArrayList<>(MAX_SIZE);
@@ -41,7 +65,6 @@ public class ArrayListHashMap<K, V> {
      * @return
      */
     private int hashFunc(Integer key) {
-        if (key == null) return MAX_SIZE;
         return key % MAX_SIZE;
     }
 
@@ -51,14 +74,26 @@ public class ArrayListHashMap<K, V> {
      * @return
      */
     private int hashFunc(String key) {
-        if (key == null) {
-            return MAX_SIZE; // 如果字符串为 null，返回 MAX_SIZE
-        }
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
             hash = (31 * hash + key.charAt(i)) % MAX_SIZE; // 使用 31 作为乘数，取模 MAX_SIZE
         }
         return hash;
+    }
+
+    /**
+     * 哈希函数：Boolean
+     * @param key
+     * @return
+     */
+    private int hashFunc(Boolean key) {
+        if (key == null) {
+            return MAX_SIZE;
+        }
+        if (key) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -76,31 +111,30 @@ public class ArrayListHashMap<K, V> {
         if (key instanceof String) {
             return hashFunc((String) key);
         }
+        if (key instanceof Boolean) {
+            return hashFunc((Boolean) key);
+        }
         return NOT_FOUND;
     }
 
     public V get(K key) {
         int index = getHash(key);
         if (index == NOT_FOUND) return null;
-        Pair<K, V> pair = buckets.get(index);
-        if (pair == null) return null;
-        return pair.value;
+        Node<K, V> node = buckets.get(index);
+        if (node == null) return null;
+        return node.value;
     }
 
     public void put(K key, V value) {
         int index = getHash(key);
         if (index == NOT_FOUND) return;
-        buckets.set(index, new Pair<>(key, value));
+        buckets.set(index, new Node<>(key, value));
     }
 
-    public void remove(K key) throws OperationNotSupportedException {
-        if (key instanceof Integer) {
-            int index = getHash(key);
-            if (index == NOT_FOUND) return;
-            buckets.set(index, null);
-            return;
-        }
-        throw new OperationNotSupportedException("only support int for key");
+    public void remove(K key) {
+        int index = getHash(key);
+        if (index == NOT_FOUND) return;
+        buckets.set(index, null);
     }
 
     /**
@@ -109,7 +143,7 @@ public class ArrayListHashMap<K, V> {
      */
     public List<K> keySet() {
         List<K> list = new ArrayList<>();
-        for (Pair<K, V> bucket : buckets) {
+        for (Node<K, V> bucket : buckets) {
             if (bucket != null) {
                 list.add(bucket.key);
             }
@@ -123,9 +157,23 @@ public class ArrayListHashMap<K, V> {
      */
     public List<V> valueSet() {
         List<V> list = new ArrayList<>();
-        for (Pair<K, V> bucket : buckets) {
+        for (Node<K, V> bucket : buckets) {
             if (bucket != null) {
                 list.add(bucket.value);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取所有键值对
+     * @return
+     */
+    public List<ArrayListHashMap.Entry<K, V>> entrySet() {
+        List<ArrayListHashMap.Entry<K, V>> list = new ArrayList<>();
+        for (ArrayListHashMap.Entry<K, V> bucket : buckets) {
+            if (bucket != null) {
+                list.add(bucket);
             }
         }
         return list;
@@ -136,9 +184,9 @@ public class ArrayListHashMap<K, V> {
      * @param consumer
      */
     public void forEach(BiConsumer<K, V> consumer) {
-        for (Pair<K, V> pair : buckets) {
-            if (pair != null) {
-                consumer.accept(pair.key, pair.value);
+        for (Node<K, V> node : buckets) {
+            if (node != null) {
+                consumer.accept(node.key, node.value);
             }
         }
     }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,11 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ArrayListHashMapTest2 {
     private ArrayListHashMap<Integer, String> intMap;
     private ArrayListHashMap<String, Integer> strMap;
+    private ArrayListHashMap<Boolean, String> boolMap;
 
     @BeforeEach
     void setUp() {
         intMap = new ArrayListHashMap<>();
         strMap = new ArrayListHashMap<>();
+        boolMap = new ArrayListHashMap<>();
     }
 
     @Test
@@ -82,5 +85,42 @@ public class ArrayListHashMapTest2 {
         intMap.forEach((k, v) -> sb.append(k).append("-").append(v).append(","));
         List<String> entries = List.of(sb.toString().split(","));
         assertTrue(entries.containsAll(List.of("1-One", "2-Two")));
+    }
+
+    @Test
+    void testBoolean() {
+        String strFalse = "False", strTrue = "True";
+        boolMap.put(false, strFalse);
+        assertEquals(strFalse, boolMap.get(false));
+        assertEquals(strFalse, boolMap.get(Boolean.FALSE));
+        boolMap.put(Boolean.FALSE, strFalse);
+        assertEquals(strFalse, boolMap.get(false));
+        assertEquals(strFalse, boolMap.get(Boolean.FALSE));
+
+        boolMap.put(true, strTrue);
+        assertEquals(strTrue, boolMap.get(true));
+        assertEquals(strTrue, boolMap.get(Boolean.TRUE));
+        boolMap.put(Boolean.TRUE, strTrue);
+        assertEquals(strFalse, boolMap.get(false));
+        assertEquals(strTrue, boolMap.get(Boolean.TRUE));
+
+        boolMap.put(null, "NULL");
+        assertEquals(strFalse, boolMap.get(false));
+        assertEquals(strTrue, boolMap.get(Boolean.TRUE));
+        assertEquals("NULL", boolMap.get(null));
+    }
+
+
+    @Test
+    void testEntry() {
+        strMap.put("111", 444);
+        for (ArrayListHashMap.Entry<String, Integer> entry : strMap.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+        }
+        strMap.remove("222");
+        assertEquals(444, strMap.get("111"));
+        strMap.remove("111");
+        assertNull(strMap.get("111"));
     }
 }

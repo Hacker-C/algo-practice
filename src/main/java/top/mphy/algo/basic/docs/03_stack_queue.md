@@ -83,6 +83,7 @@ public class JavaStackTest {
 ### 参考
 
 - https://developer.aliyun.com/article/866814
+- https://www.cnblogs.com/dxflqm/p/11867611.html
 
 ## 队列和栈互相实现
 
