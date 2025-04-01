@@ -7,8 +7,7 @@ import java.util.function.BiConsumer;
 public class ArrayListHashMap<K, V> {
 
     private static final int NOT_FOUND = -1;
-    
-    
+
     private static final int MAX_SIZE = 100;
 
     /**
@@ -135,6 +134,12 @@ public class ArrayListHashMap<K, V> {
         int index = getHash(key);
         if (index == NOT_FOUND) return;
         buckets.set(index, null);
+    }
+
+    public void clear() {
+        for (int i = 0; i < buckets.size(); i++) {
+            buckets.set(i, null);
+        }
     }
 
     /**
