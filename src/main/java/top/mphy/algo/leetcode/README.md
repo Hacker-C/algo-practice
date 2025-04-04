@@ -8,3 +8,4 @@
 6. [946. 验证栈序列](https://leetcode.cn/problems/validate-stack-sequences/description/)
 7. [232. 用栈实现队列](https://leetcode.cn/problems/implement-queue-using-stacks/description/)
 8. [242. 有效的字母异位词](https://leetcode.cn/problems/valid-anagram/description/)
+9. [383. 赎金信383. 赎金信](https://leetcode.cn/problems/ransom-note/description/)
